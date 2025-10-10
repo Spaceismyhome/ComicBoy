@@ -1,5 +1,7 @@
 ﻿using ComicReaderApp.Models;
 using ComicReaderApp.Views;
+using Microsoft.Maui.Storage;
+using ComicReaderApp.Data;
 using System.Collections.ObjectModel;
 
 namespace ComicReaderApp
@@ -17,7 +19,7 @@ namespace ComicReaderApp
 
         async void LoadBooks()
         {
-           var booksFromDb = await App.Database.GetBooksAsync();
+           var booksFromDb = await App.database.GetBooksAsync();
               Books.Clear();
               foreach (var book in booksFromDb)
                 {
@@ -35,7 +37,7 @@ namespace ComicReaderApp
                                 FilePath = result.FullPath,
                                 FileType = Path.GetExtension(result.FileName)
                             };
-                            await App.Database.SaveBookAsync(Book);
+                            await App.database.SaveBookAsync(Book);
                             Books.Add(Book);
             }
         }
