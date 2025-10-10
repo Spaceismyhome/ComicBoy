@@ -3,6 +3,7 @@ using ComicReaderApp.Views;
 using Microsoft.Maui.Storage;
 using ComicReaderApp.Data;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace ComicReaderApp
 {
@@ -51,6 +52,8 @@ namespace ComicReaderApp
 
             ((CollectionView)sender).SelectedItem = null;
         }
+
+       
     }
 }
 

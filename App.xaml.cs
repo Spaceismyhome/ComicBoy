@@ -5,7 +5,7 @@ namespace ComicReaderApp
 {
     public partial class App : Application
     {
-        public static LibraryDatabase database;
+        public static LibraryDatabase? database;
         
         public App()
         {

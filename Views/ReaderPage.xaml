@@ -3,5 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ComicReaderApp.Views.ReaderPage"
              Title="ReaderPage">
-    <WebView x:Name="PdfViewer" />
+
+    <VerticalStackLayout>
+        <HorizontalStackLayout Spacing="10" Padding="10">
+            <Button Text="▶️ Read / Resume"
+                    Clicked="OnReadResumeClicked" />
+
+            <Button Text="⏸️ Pause"
+                    Clicked="OnPauseClicked" />
+            
+                       
+            <Button Text="Stop" Clicked="OnStopClicked" />
+        </HorizontalStackLayout>
+
+
+        <WebView 
+            x:Name="PdfWebView"
+            HeightRequest="1000"
+            />
+    </VerticalStackLayout>
+   
 </ContentPage>
+

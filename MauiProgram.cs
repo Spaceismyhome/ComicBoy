@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using Syncfusion.Maui.Core.Hosting;
+﻿using Maui.PDFView;
+using Microsoft.Extensions.Logging;
 
 namespace ComicReaderApp
 {
@@ -16,7 +16,7 @@ namespace ComicReaderApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 })
 
-            .ConfigureSyncfusionCore();
+             .UseMauiPdfView(); // <-- register the PDF view
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
