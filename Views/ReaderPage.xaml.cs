@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 using UglyToad.PdfPig;
+using Microsoft.Maui.Media;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace ComicReaderApp.Views;
 
@@ -9,6 +11,9 @@ public partial class ReaderPage : ContentPage
     private readonly string _filePath;
     private bool _isPaused = false;
     private bool _isReading = false;
+    private double _speechRate = 1.0;
+    private const double MinRate = 0.5;
+    private const double MaxRate = 2.0;
     private int _currentPage = 1;
     private int _currentChunkIndex = 0;
     private Dictionary<int, string> _pageFullText = new Dictionary<int, string>();
@@ -64,6 +69,27 @@ public partial class ReaderPage : ContentPage
         }
     }
 
+    private void OnSlowClicked(object sender, EventArgs e)
+    {
+        _speechRate -= 0.1;
+
+        if (_speechRate < MinRate)
+            _speechRate = MinRate;
+
+        SpeedLabel.Text = $"Speed: {_speechRate:F1}x";
+    }
+
+    private void OnFastClicked(object sender, EventArgs e)
+    {
+        _speechRate += 0.1;
+
+        if (_speechRate > MaxRate)
+            _speechRate = MaxRate;
+
+        SpeedLabel.Text = $"Speed: {_speechRate:F1}x";
+    }
+
+
     private async void OnReadResumeClicked(object sender, EventArgs e)
     {
         if (_isReading && !_isPaused)
@@ -112,6 +138,7 @@ public partial class ReaderPage : ContentPage
             _cancellationTokenSource?.Cancel();
         }
     }
+
 
     private async Task ReadFromCurrentPosition()
     {
@@ -207,7 +234,15 @@ public partial class ReaderPage : ContentPage
             await UpdateHighlightDisplay(chunk, pageNum);
 
             // Read the chunk
-            await TextToSpeech.SpeakAsync(chunk);
+            await TextToSpeech.SpeakAsync(
+                 chunk,
+                 new SpeechOptions
+                 {
+                      Pitch = (float)_speechRate
+                 }
+                 
+             );
+
 
             // Small delay between chunks
             await Task.Delay(30);

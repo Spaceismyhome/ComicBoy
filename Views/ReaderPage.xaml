@@ -35,6 +35,32 @@
                    FontSize="14" />
         </Grid>
 
+
+        <!-- Speed Controls -->
+        <Grid ColumnDefinitions="Auto,*,Auto"
+      Padding="10"
+      ColumnSpacing="10">
+
+            <Button Grid.Column="0"
+            Text="🐢 Slow"
+            FontSize="12"
+            Clicked="OnSlowClicked" />
+
+            <Label Grid.Column="1"
+           x:Name="SpeedLabel"
+           Text="Speed: 1.0x"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           FontSize="12"
+           TextColor="Gray" />
+
+            <Button Grid.Column="2"
+            Text="🐇 Fast"
+            FontSize="12"
+            Clicked="OnFastClicked" />
+        </Grid>
+
+
         <!-- Reading Progress -->
         <ProgressBar x:Name="ReadingProgress"
                      Progress="0"
